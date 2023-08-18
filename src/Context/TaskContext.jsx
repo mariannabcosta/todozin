@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
@@ -51,6 +50,24 @@ export const TaskProvider = ({ children }) => {
       console.error(error);
     }
   };
+  const updateTaskCompletion = async (taskId) => {
+    try {
+      const taskToUpdate = tasks.find((task) => task.id === taskId);
+      if (taskToUpdate) {
+        const updatedTask = {
+          ...taskToUpdate,
+          completed: !taskToUpdate.completed,
+        };
+        await axios.put(`${url}/${taskId}`, updatedTask);
+        const updatedTasks = tasks.map((task) =>
+          task.id === taskId ? updatedTask : task
+        );
+        setTasks(updatedTasks);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <TaskContext.Provider
       value={{
@@ -60,6 +77,7 @@ export const TaskProvider = ({ children }) => {
         taskInput,
         setTaskInput,
         deleteTask,
+        updateTaskCompletion,
       }}
     >
       {children}

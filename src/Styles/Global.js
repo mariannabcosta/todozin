@@ -36,8 +36,7 @@ export const GlobalStyle = createGlobalStyle`
         overflow-x:hidden ;
         scroll-behavior: smooth;
         
-        background-color: black;
-;
+        background-color: #25252b;
     }
 
     button{
@@ -50,12 +49,6 @@ export const GlobalStyle = createGlobalStyle`
 
     img{
         max-width: 100%;
-    }
-
-    h1, h2, h3 {
-        font-weight: 400;
-        color: var(--white);
-        text-transform: uppercase;
     }
 
     p {

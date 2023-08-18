@@ -4,27 +4,27 @@ export const ContainerTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto;
 
   h1 {
-    font-size: 4rem;
+    font-size: 4vw;
   }
 
   img {
-    width: 12vw;
+    width: 13vw;
   }
 `;
 
 export const Container = styled.div`
-  background-color: #b656f8;
-
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: 2rem;
-  flex-direction: column;
-  border: 2px solid var(--dark-green);
-  border-radius: 35px;
+  min-height: 100vw;
 
-  width: 50%;
-  margin: 0 auto;
+  h2 {
+    color: var(--white);
+    font-size: 1.5vw;
+    margin-top: 20px;
+  }
 `;

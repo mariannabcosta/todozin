@@ -1,40 +1,93 @@
-/* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
 import { StyledButton } from "../Button/Button.styles";
-import { StyledInputAddTask, StyledUl } from "./InputAddTask.styles";
+import {
+  StyledInputAddTask,
+  StyledUl,
+  StyledLabel,
+} from "./InputAddTask.styles";
 import { TaskContext } from "../../Context/TaskContext";
-import { StyledDeleteButton } from "../DeleteButton/DeleteButton.styles";
-import lixeira from "../../assets/lixeira.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Input = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+  const {
+    tasks,
+    taskInput,
+    setTaskInput,
+    createTask,
+    deleteTask,
+    updateTaskCompletion,
+  } = useContext(TaskContext);
+
+  // Essa função é chamada quando o valor do input é alterado
+  const handleChange = (e) => {
+    setTaskInput(e.target.value);
   };
 
-  const { tasks, taskInput, setTaskInput, createTask, deleteTask } =
-    useContext(TaskContext);
+  // Essa função é chamada quando o botão é pressionado
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Evita o comportamento padrão de recarregar a página
+    if (taskInput.trim() === "") {
+      alert("Enter a task");
+      return;
+    }
+
+    // Cria a tarefa com o texto fornecido e redefine o input para vazio
+    createTask(taskInput);
+    setTaskInput("");
+  };
+
+  // Esta função é chamada quando o checkbox de uma tarefa é alterado
+  const handleCheckboxChange = (taskId) => {
+    updateTaskCompletion(taskId);
+  };
+
   return (
     <>
       <div>
-        <StyledInputAddTask
-          type="text"
-          placeholder="Type a task here..."
-          value={taskInput}
-          onChange={(e) => {
-            setTaskInput(e.target.value);
-          }}
-        />
-        <StyledButton onClick={createTask}>Create task</StyledButton>
+        <form onSubmit={handleSubmit}>
+          {/* Input para digitar a tarefa */}
+          <StyledInputAddTask
+            type="text"
+            placeholder="nova tarefa"
+            value={taskInput}
+            onChange={handleChange}
+          />
+          {/* Botão para criar a tarefa */}
+          <StyledButton type="submit">
+            <FontAwesomeIcon
+              icon={faPlus}
+              fade
+              size="2xl"
+              style={{ color: "var(--white)" }}
+            />
+          </StyledButton>
+        </form>
       </div>
+      {/* Lista de tarefas */}
       <StyledUl>
         {tasks.map((task) => (
           <li key={task.id}>
-            <input type="checkbox" onChange={handleCheckboxChange} />
-            {task.title}
-            <StyledDeleteButton onClick={() => deleteTask(task.id)}>
-              <img src={lixeira} alt="" />
-            </StyledDeleteButton>
+            {/* Checkbox para marcar a conclusão da tarefa */}
+            <div className="custom-checkbox">
+              <input
+                id={task.id}
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => handleCheckboxChange(task.id)}
+              />
+              <StyledLabel for={task.id} iscompleted={task.completed}>
+                {task.title}
+              </StyledLabel>
+            </div>
+            {/* Botão para deletar a tarefa */}
+            <button onClick={() => deleteTask(task.id)}>
+              <FontAwesomeIcon
+                icon={faTrash}
+                size="xl"
+                style={{ color: "#be0e0e" }}
+              />
+            </button>
           </li>
         ))}
       </StyledUl>
