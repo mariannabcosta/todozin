@@ -1,13 +1,14 @@
-import { useContext, useState } from "react";
-import { StyledButton } from "../Button/Button.styles";
+import { useContext } from "react";
+import { StyledButton } from "../AddTaskButton/AddTaskButton.styles";
 import {
-  StyledInputAddTask,
+  StyledAddTaskInput,
   StyledUl,
   StyledLabel,
-} from "./InputAddTask.styles";
+} from "./AddTaskInput.styles";
 import { TaskContext } from "../../Context/TaskContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 const Input = () => {
   const {
@@ -28,7 +29,7 @@ const Input = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); // Evita o comportamento padrão de recarregar a página
     if (taskInput.trim() === "") {
-      alert("Enter a task");
+      toast.error("Insira uma tarefa!");
       return;
     }
 
@@ -47,7 +48,7 @@ const Input = () => {
       <div>
         <form onSubmit={handleSubmit}>
           {/* Input para digitar a tarefa */}
-          <StyledInputAddTask
+          <StyledAddTaskInput
             type="text"
             placeholder="nova tarefa"
             value={taskInput}

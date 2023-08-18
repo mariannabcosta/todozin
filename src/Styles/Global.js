@@ -2,10 +2,10 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 :root{
-    --light-green: #E4E390;
     --white: #F9EAC0;
-    --orange:#C96F32;
-    --dark-green: #09400E;
+    --bg-dark: #25252b;
+    --orange: #d6625e;
+    --gray: #222;
 }
 
 *{
@@ -13,7 +13,6 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
-        text-transform: uppercase;
 
         /* Scrollbar - Firefox */
         scrollbar-width: thin;
@@ -28,15 +27,17 @@ export const GlobalStyle = createGlobalStyle`
     *::-webkit-scrollbar-thumb {
 
         border-radius: 0.6rem;
-        border: 0 none ;
+        border: 0 none;
     }
     body{
         
 
-        overflow-x:hidden ;
+        overflow-x: hidden;
         scroll-behavior: smooth;
         
-        background-color: #25252b;
+        background-color: var(--bg-dark);
+
+        min-width: 100vw;
     }
 
     button{
@@ -49,11 +50,6 @@ export const GlobalStyle = createGlobalStyle`
 
     img{
         max-width: 100%;
-    }
-
-    p {
-        font-weight: 300;
-        text-transform: uppercase;
     }
 
 `;

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const TaskContext = createContext();
 
@@ -26,7 +27,7 @@ export const TaskProvider = ({ children }) => {
 
   const createTask = async () => {
     if (taskInput.trim() === "") {
-      alert("Enter a task");
+      toast.error("Insira uma tarefa");
       return;
     }
 
