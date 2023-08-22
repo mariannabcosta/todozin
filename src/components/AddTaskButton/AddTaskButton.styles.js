@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const StyledButton = styled.button`
-  background: none;
+  width: auto;
+  height: 3vw;
   border: none;
-  margin-left: 10px;
+  padding: 10px;
+  background: none;
+  font-family: "Poppins", sans-serif;
+  color: var(--white);
 `;

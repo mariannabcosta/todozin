@@ -37,7 +37,9 @@ export const GlobalStyle = createGlobalStyle`
         
         background-color: var(--bg-dark);
 
-        min-width: 100vw;
+        min-width: 100%;
+
+        user-select: none;
     }
 
     button{

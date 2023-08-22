@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { StyledButton } from "../AddTaskButton/AddTaskButton.styles";
 import {
   StyledAddTaskInput,
@@ -7,7 +7,7 @@ import {
 } from "./AddTaskInput.styles";
 import { TaskContext } from "../../Context/TaskContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 
 const Input = () => {
@@ -19,6 +19,8 @@ const Input = () => {
     deleteTask,
     updateTaskCompletion,
   } = useContext(TaskContext);
+
+  const [placeholder, setPlaceholder] = useState("Qual a sua próxima tarefa?");
 
   // Essa função é chamada quando o valor do input é alterado
   const handleChange = (e) => {
@@ -43,6 +45,16 @@ const Input = () => {
     updateTaskCompletion(taskId);
   };
 
+  const handleFocus = () => {
+    setPlaceholder("");
+  };
+
+  const handleBlur = () => {
+    if (taskInput.trim() === "") {
+      setPlaceholder("Qual a sua próxima tarefa?");
+    }
+  };
+
   return (
     <>
       <div>
@@ -50,9 +62,11 @@ const Input = () => {
           {/* Input para digitar a tarefa */}
           <StyledAddTaskInput
             type="text"
-            placeholder="nova tarefa"
+            placeholder={placeholder}
             value={taskInput}
             onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
           {/* Botão para criar a tarefa */}
           <StyledButton type="submit">
@@ -84,9 +98,9 @@ const Input = () => {
             {/* Botão para deletar a tarefa */}
             <button onClick={() => deleteTask(task.id)}>
               <FontAwesomeIcon
-                icon={faTrash}
-                size="xl"
-                style={{ color: "#be0e0e" }}
+                icon={faMinus}
+                size="2xl"
+                style={{ color: "#dd0808" }}
               />
             </button>
           </li>
